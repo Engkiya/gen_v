@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media &amp; Layout</title>
+
+    <!-- Ikon/Logo Website -->
+    <link rel="icon" type="image/x-icon" href="assets/logo1.ico">
+
+    <style>
+        /* ===== Reset & Dasar ===== */
+        *, *::before, *::after { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            padding: 48px 20px;
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+            color: #1e293b;
+            line-height: 1.6;
+            background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 55%, #0e7490 100%) fixed;
+        }
+
+        /* ===== Layout ===== */
+        .container {
+            max-width: 760px;
+            margin: 0 auto;
+            display: grid;
+            gap: 24px;
+        }
+
+        header { text-align: center; color: #fff; margin-bottom: 8px; }
+        header h1 { margin: 0 0 6px; font-size: clamp(28px, 5vw, 38px); letter-spacing: .5px; }
+        header p  { margin: 0; color: #bfdbfe; font-size: 15px; }
+
+        /* ===== Kartu Konten ===== */
+        .card {
+            background: #ffffff;
+            border-radius: 18px;
+            padding: 24px;
+            box-shadow: 0 18px 40px rgba(2, 8, 30, .35);
+            transition: transform .25s ease, box-shadow .25s ease;
+        }
+        .card:hover { transform: translateY(-3px); box-shadow: 0 24px 48px rgba(2, 8, 30, .45); }
+
+        .card h2 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 0 0 16px;
+            padding-bottom: 12px;
+            font-size: 18px;
+            color: #1e3a8a;
+            border-bottom: 2px solid #e0f2fe;
+        }
+        .card h2 span { font-size: 20px; }
+
+        /* ===== Media ===== */
+        .media { display: flex; justify-content: center; }
+
+        img   { max-width: 100%; height: auto; border-radius: 12px; }
+        audio { width: 100%; }
+        video { width: 100%; max-width: 100%; border-radius: 12px; background: #000; }
+
+        .video-wrapper {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            overflow: hidden;
+            border-radius: 12px;
+            background: #000;
+        }
+        .video-wrapper iframe { width: 100%; height: 100%; border: 0; display: block; }
+
+        footer { text-align: center; color: #93c5fd; font-size: 13px; margin-top: 8px; }
+
+        @media (max-width: 520px) {
+            body { padding: 32px 14px; }
+            .card { padding: 18px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <header>
+            <h1>Media &amp; Layout</h1>
+            <p>Gambar, audio, dan video dalam satu halaman</p>
+        </header>
+
+        <!-- Gambar -->
+        <section class="card">
+            <h2><span>🖼️</span> Gambar</h2>
+            <div class="media">
+                <img width="200" src="assets/img1.png" alt="Logo Gambar" loading="lazy">
+            </div>
+        </section>
+
+        <!-- Audio -->
+        <section class="card">
+            <h2><span>🎵</span> Audio</h2>
+            <audio controls preload="metadata">
+                <source src="assets/audio1.mp3" type="audio/mpeg">
+                Browsermu tidak mendukung elemen audio.
+            </audio>
+        </section>
+
+        <!-- Video Lokal -->
+        <section class="card">
+            <h2><span>🎬</span> Video Lokal</h2>
+            <video src="assets/video1.mp4" controls preload="metadata">
+                Browsermu tidak mendukung elemen video.
+            </video>
+        </section>
+
+        <!-- Video YouTube -->
+        <section class="card">
+            <h2><span>▶️</span> Video YouTube</h2>
+            <div class="video-wrapper">
+                <iframe
+                    src="https://www.youtube.com/embed/1Q1Q6PbG9gE?si=vJCvDgzOWu_4TkuD"
+                    title="YouTube video player"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    loading="lazy"
+                    allowfullscreen></iframe>
+            </div>
+        </section>
+
+        <footer>&copy; Media &amp; Layout</footer>
+
+    </div>
+
+</body>
+</html>
