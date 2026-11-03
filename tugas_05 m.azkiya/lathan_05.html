@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>M. Azkiya - Senior Software Architect & Lead Engineer</title>
+    
+    <!-- 1. Framework CSS (Tailwind CSS) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            dark: '#070D18',
+                            surface: '#0F172A',
+                            surfaceHover: '#1E293B',
+                            primary: '#6366F1',
+                            accent: '#14B8A6',
+                            highlight: '#38BDF8',
+                            whatsapp: '#22C55E'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- 2. Internal CSS (Custom Animation, Cursor Glow Layer, Glassmorphism & Print Engine) -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+        
+        :root {
+            --mouse-x: 50vw;
+            --mouse-y: 50vh;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #070D18;
+            color: #cbd5e1;
+            overflow-x: hidden;
+        }
+
+        .font-mono-code {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Ambient Glow yang bergerak mengikuti mouse */
+        #ambient-glow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 1;
+            background: radial-gradient(
+                750px circle at var(--mouse-x) var(--mouse-y),
+                rgba(99, 102, 241, 0.12),
+                rgba(20, 184, 166, 0.05) 35%,
+                transparent 70%
+            );
+            transition: background 0.05s ease-out;
+        }
+
+        /* Glassmorphism Surface */
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .glass-panel:hover {
+            border-color: rgba(99, 102, 241, 0.35);
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.6);
+        }
+
+        .stat-card {
+            background: linear-gradient(145deg, rgba(30, 41, 59, 0.4) 0%, rgba(15, 23, 42, 0.7) 100%);
+        }
+
+        /* Print Media Style */
+        @media print {
+            #ambient-glow, .no-print, nav {
+                display: none !important;
+            }
+            body {
+                background: #ffffff !important;
+                color: #0f172a !important;
+            }
+            .glass-panel, .stat-card {
+                background: transparent !important;
+                border: 1px solid #cbd5e1 !important;
+                box-shadow: none !important;
+                page-break-inside: avoid;
+            }
+            .text-white, .text-slate-200, .text-slate-300 {
+                color: #0f172a !important;
+            }
+            .text-slate-400 {
+                color: #475569 !important;
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-brand-primary selection:text-white relative">
+
+    <!-- Ambient Glow Dinamis Mengikuti Mouse -->
+    <div id="ambient-glow"></div>
+
+    <!-- Navigation Bar & Role Switcher -->
+    <nav class="sticky top-0 z-50 glass-panel border-b border-slate-800/80 no-print">
+        <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <span class="w-2.5 h-2.5 rounded-full bg-brand-accent animate-ping"></span>
+                <span class="text-sm font-extrabold tracking-tight text-white flex items-center gap-2">
+                    M. Azkiya <span class="text-[10px] font-mono-code text-brand-highlight px-2 py-0.5 rounded bg-sky-950/60 border border-sky-800/60">STAFF ENG</span>
+                </span>
+            </div>
+            
+            <div class="flex items-center gap-3">
+                <span class="text-xs text-slate-400 hidden sm:inline">Tampilan Role:</span>
+                <div class="bg-slate-900/90 border border-slate-700/80 rounded-xl p-1 flex text-xs">
+                    <button onclick="switchRole('public')" id="btn-public" class="px-3 py-1 rounded-lg bg-brand-primary text-white font-semibold transition">Public</button>
+                    <button onclick="switchRole('recruiter')" id="btn-recruiter" class="px-3 py-1 rounded-lg text-slate-400 hover:text-white transition">Recruiter</button>
+                    <button onclick="switchRole('admin')" id="btn-admin" class="px-3 py-1 rounded-lg text-slate-400 hover:text-white transition">Executive</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Container -->
+    <main class="max-w-6xl mx-auto px-6 py-10 w-full flex-1 relative z-10">
+        
+        <!-- Header Profile & Availability -->
+        <header class="glass-panel rounded-3xl p-8 mb-8 border border-slate-800/90 relative overflow-hidden">
+            <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
+                <div>
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-950/40 border border-teal-700/50 text-brand-accent text-xs font-medium mb-3">
+                        <span class="w-2 h-2 rounded-full bg-brand-accent"></span>
+                        Terbuka untuk Technical Architecture & Advisory Roles
+                    </div>
+                    <h1 class="text-3xl md:text-5xl font-black text-white tracking-tight">M. Azkiya</h1>
+                    <p class="text-lg md:text-xl text-transparent bg-clip-text bg-gradient-to-r from-brand-primary via-brand-highlight to-brand-accent font-bold mt-2">
+                        Senior Software Architect & Distributed Systems Engineer
+                    </p>
+                    <p class="text-sm text-slate-400 mt-3 max-w-2xl leading-relaxed">
+                        10 tahun merancang sistem monolit modular andal dan terdistribusi berskala enterprise. Berfokus pada kestabilan transaksi konkurensi tinggi, optimasi database, ketahanan arsitektur, dan kepemimpinan tim rekayasa perangkat lunak.
+                    </p>
+                    
+                    <div class="flex flex-wrap items-center gap-4 mt-5 text-xs text-slate-300">
+                        <span class="flex items-center gap-1.5 font-medium">📍 Surabaya, Indonesia</span>
+                        <span id="contact-email" class="flex items-center gap-1.5 text-slate-500 italic">🔒 Akses Recruiter untuk info kontak privat</span>
+                        <span id="contact-phone" class="flex items-center gap-1.5 text-slate-500 italic"></span>
+                        <span id="contact-wa" class="flex items-center gap-1.5"></span>
+                    </div>
+                </div>
+
+                <!-- Tombol Aksi Cepat -->
+                <div class="no-print flex flex-col sm:flex-row gap-3 w-full lg:w-auto">
+                    <!-- Tombol WhatsApp Langsung -->
+                    <a href="https://wa.me/628582030543?text=Halo%20M.%20Azkiya,%20saya%20tertarik%20untuk%20berdiskusi%20mengenai%20peluang%20kerja%20sama%20atau%20proyek%20rekayasa%20perangkat%20lunak." 
+                       target="_blank" 
+                       rel="noopener noreferrer" 
+                       class="px-5 py-3 bg-brand-whatsapp/20 hover:bg-brand-whatsapp/30 text-emerald-300 border border-emerald-500/30 rounded-xl text-xs font-semibold tracking-wide transition flex items-center justify-center gap-2 group">
+                        <svg class="w-4 h-4 text-emerald-400 group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.669-.699c.969.54 1.761.82 2.791.82 3.182 0 5.768-2.587 5.768-5.766.001-3.182-2.585-5.806-5.768-5.806zm3.385 8.214c-.144.405-.837.774-1.17.824-.312.045-.694.06-1.107-.074-.27-.087-.629-.228-1.077-.425-1.913-.842-3.14-2.81-3.234-2.939-.096-.129-.785-1.042-.785-1.99 0-.948.497-1.414.673-1.608.176-.194.382-.243.51-.243.128 0 .256.002.366.007.119.005.276-.045.431.328.156.373.535 1.306.583 1.402.048.097.08.21.016.339-.064.13-.096.21-.192.324-.096.113-.203.253-.29.339-.097.097-.198.203-.085.397.113.195.502.828 1.078 1.342.742.662 1.367.867 1.561.964.195.097.308.081.42-.048.113-.13.484-.565.613-.759.129-.194.258-.161.435-.096.177.064 1.129.533 1.323.63.193.097.322.145.37.226.048.08.048.468-.096.873z"/>
+                        </svg>
+                        Hubungi via WhatsApp
+                    </a>
+
+                    <!-- Tombol Cetak PDF -->
+                    <button onclick="window.print()" class="px-5 py-3 bg-slate-800/90 hover:bg-slate-700 text-slate-200 border border-slate-700 rounded-xl text-xs font-semibold tracking-wide transition flex items-center justify-center gap-2">
+                        <svg class="w-4 h-4 text-brand-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
+                        Export PDF / Cetak
+                    </button>
+                </div>
+            </div>
+
+            <!-- Key Career Metrics Banner -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8 pt-6 border-t border-slate-800">
+                <div class="stat-card p-4 rounded-2xl border border-slate-800">
+                    <div class="text-2xl font-black text-white font-mono-code">10+ Thn</div>
+                    <div class="text-[11px] text-slate-400 uppercase tracking-wider font-semibold mt-1">Pengalaman Industri</div>
+                </div>
+                <div class="stat-card p-4 rounded-2xl border border-slate-800">
+                    <div class="text-2xl font-black text-brand-accent font-mono-code">15.000+</div>
+                    <div class="text-[11px] text-slate-400 uppercase tracking-wider font-semibold mt-1">Throughput Transaksi (TPS)</div>
+                </div>
+                <div class="stat-card p-4 rounded-2xl border border-slate-800">
+                    <div class="text-2xl font-black text-brand-primary font-mono-code">99.98%</div>
+                    <div class="text-[11px] text-slate-400 uppercase tracking-wider font-semibold mt-1">Target SLA Uptime</div>
+                </div>
+                <div class="stat-card p-4 rounded-2xl border border-slate-800">
+                    <div class="text-2xl font-black text-sky-400 font-mono-code">24+ Dev</div>
+                    <div class="text-[11px] text-slate-400 uppercase tracking-wider font-semibold mt-1">Dipimpin & Dimonitor</div>
+                </div>
+            </div>
+        </header>
+
+        <!-- 2 Kolom Grid Layout -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            
+            <!-- Kolom Pengalaman Kerja (2 Kolom Lebar) -->
+            <section class="lg:col-span-2 space-y-6">
+                <h2 class="text-lg font-bold text-white flex items-center gap-2">
+                    <span class="w-2 h-4 bg-brand-primary rounded-sm"></span> Riwayat Rekayasa & Kepemimpinan
+                </h2>
+
+                <div class="space-y-4">
+                    <!-- Experience 1 -->
+                    <article class="glass-panel rounded-2xl p-6 border-l-4 border-l-brand-primary">
+                        <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-2">
+                            <div>
+                                <h3 class="text-base font-bold text-white">Principal System Architect</h3>
+                                <p class="text-xs text-brand-accent font-medium">FinTech Nusantara Holdings</p>
+                            </div>
+                            <span class="text-xs px-3 py-1 bg-slate-900 border border-slate-800 text-slate-300 rounded-full font-mono-code w-fit">2021 — Sekarang</span>
+                        </div>
+                        <ul class="text-xs md:text-sm text-slate-300 mt-4 list-disc list-inside space-y-2 leading-relaxed">
+                            <li>Merombak inti arsitektur core settlement menjadi modular event-driven yang menangani lonjakan transaksi harian tanpa data race.</li>
+                            <li>Mengurangi overhead latensi database p99 dari 140ms menjadi 18ms melalui teknik partisi cerdas dan optimalisasi cache tiering.</li>
+                            <li>Menyusun blueprint rekayasa perangkat lunak standar perusahaan dan memimpin tinjauan arsitektur lintas 4 squad engineering.</li>
+                        </ul>
+                    </article>
+
+                    <!-- Experience 2 (Confidential Project / Role Sensitive) -->
+                    <article id="confidential-project" class="glass-panel rounded-2xl p-6 border-l-4 border-l-amber-500 hidden">
+                        <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-2">
+                            <div>
+                                <h3 class="text-base font-bold text-white">Lead Infrastructure Consultant</h3>
+                                <p class="text-xs text-amber-400 font-medium">National Core Banking Digitalization (NDA Project)</p>
+                            </div>
+                            <span class="text-xs px-3 py-1 bg-slate-900 border border-slate-800 text-slate-300 rounded-full font-mono-code w-fit">2019 — 2021</span>
+                        </div>
+                        <p class="text-xs md:text-sm text-slate-300 mt-3 leading-relaxed">
+                            Mendesain sistem distributed ledger multi-data center dengan replikasi aktif-aktif zero data loss (RPO = 0) sesuai regulasi audit keamanan data keuangan nasional.
+                        </p>
+                        <span class="inline-block mt-3 text-[10px] font-bold text-amber-300 bg-amber-950/60 border border-amber-800/80 px-2.5 py-0.5 rounded-full font-mono-code">
+                            Akses Eksklusif Recruiter & Eksekutif
+                        </span>
+                    </article>
+
+                    <!-- Experience 3 -->
+                    <article class="glass-panel rounded-2xl p-6 border-l-4 border-l-brand-primary">
+                        <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-2">
+                            <div>
+                                <h3 class="text-base font-bold text-white">Senior Backend Engineer</h3>
+                                <p class="text-xs text-brand-accent font-medium">Global Cloud Enterprise</p>
+                            </div>
+                            <span class="text-xs px-3 py-1 bg-slate-900 border border-slate-800 text-slate-300 rounded-full font-mono-code w-fit">2016 — 2019</span>
+                        </div>
+                        <ul class="text-xs md:text-sm text-slate-300 mt-4 list-disc list-inside space-y-2 leading-relaxed">
+                            <li>Membangun puluhan RESTful microservices berbasis Python dan engine database SQL berlatensi rendah.</li>
+                            <li>Mengintegrasikan automated CI/CD pipeline yang memangkas siklus rilis produksi dari mingguan menjadi harian.</li>
+                        </ul>
+                    </article>
+                </div>
+            </section>
+
+            <!-- Kolom Keahlian & Interaksi Kontak (1 Kolom Samping) -->
+            <section class="space-y-6">
+                <h2 class="text-lg font-bold text-white flex items-center gap-2">
+                    <span class="w-2 h-4 bg-brand-accent rounded-sm"></span> Matriks Kemahiran Teknis
+                </h2>
+
+                <div class="glass-panel rounded-2xl p-6 space-y-5">
+                    <!-- Filter Kategori Dinamis -->
+                    <div class="flex flex-wrap gap-1.5 text-xs no-print">
+                        <button onclick="filterCategory('all')" class="cat-btn px-2.5 py-1 bg-brand-primary text-white rounded-lg font-medium transition">Semua</button>
+                        <button onclick="filterCategory('backend')" class="cat-btn px-2.5 py-1 bg-slate-800 text-slate-400 hover:text-white rounded-lg font-medium transition">Backend</button>
+                        <button onclick="filterCategory('database')" class="cat-btn px-2.5 py-1 bg-slate-800 text-slate-400 hover:text-white rounded-lg font-medium transition">Database</button>
+                        <button onclick="filterCategory('infra')" class="cat-btn px-2.5 py-1 bg-slate-800 text-slate-400 hover:text-white rounded-lg font-medium transition">DevOps/Infra</button>
+                    </div>
+
+                    <!-- Progress Bar dengan Nilai Dinamis -->
+                    <div class="space-y-4 pt-2">
+                        <div class="skill-row" data-cat="backend">
+                            <div class="flex justify-between text-xs mb-1 font-semibold">
+                                <span class="text-slate-200">Python (Flask, FastAPI) Architecture</span>
+                                <span class="text-brand-accent font-mono-code">96%</span>
+                            </div>
+                            <div class="w-full bg-slate-800/80 rounded-full h-2 border border-slate-700/60 overflow-hidden">
+                                <div class="bg-gradient-to-r from-brand-primary to-brand-accent h-2 rounded-full transition-all duration-700" style="width: 96%;"></div>
+                            </div>
+                        </div>
+
+                        <div class="skill-row" data-cat="database">
+                            <div class="flex justify-between text-xs mb-1 font-semibold">
+                                <span class="text-slate-200">SQLite & High-Performance SQL</span>
+                                <span class="text-brand-accent font-mono-code">92%</span>
+                            </div>
+                            <div class="w-full bg-slate-800/80 rounded-full h-2 border border-slate-700/60 overflow-hidden">
+                                <div class="bg-gradient-to-r from-brand-primary to-brand-accent h-2 rounded-full transition-all duration-700" style="width: 92%;"></div>
+                            </div>
+                        </div>
+
+                        <div class="skill-row" data-cat="infra">
+                            <div class="flex justify-between text-xs mb-1 font-semibold">
+                                <span class="text-slate-200">Distributed Caching, Docker, K8s</span>
+                                <span class="text-brand-accent font-mono-code">88%</span>
+                            </div>
+                            <div class="w-full bg-slate-800/80 rounded-full h-2 border border-slate-700/60 overflow-hidden">
+                                <div class="bg-gradient-to-r from-brand-primary to-brand-accent h-2 rounded-full transition-all duration-700" style="width: 88%;"></div>
+                            </div>
+                        </div>
+
+                        <div class="skill-row" data-cat="backend">
+                            <div class="flex justify-between text-xs mb-1 font-semibold">
+                                <span class="text-slate-200">Clean Architecture, DDD, & RBAC</span>
+                                <span class="text-brand-accent font-mono-code">94%</span>
+                            </div>
+                            <div class="w-full bg-slate-800/80 rounded-full h-2 border border-slate-700/60 overflow-hidden">
+                                <div class="bg-gradient-to-r from-brand-primary to-brand-accent h-2 rounded-full transition-all duration-700" style="width: 94%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recruiter Direct Contact Box -->
+                <div id="recruiter-box" class="glass-panel rounded-2xl p-6 border border-brand-accent/30 no-print hidden">
+                    <h3 class="text-sm font-bold text-white mb-1">Direct Technical Consultation / Offer</h3>
+                    <p class="text-[11px] text-slate-400 mb-3">Kirimkan penawaran atau buka percakapan WhatsApp instan dengan M. Azkiya.</p>
+                    <form onsubmit="handleContact(event)" class="space-y-3">
+                        <input type="text" id="recruiter-input" required placeholder="Subjek tawaran atau jadwal wawancara..." class="w-full bg-slate-900 border border-slate-700 text-slate-200 text-xs rounded-xl p-3 focus:border-brand-accent focus:outline-none">
+                        
+                        <div class="flex gap-2">
+                            <button type="submit" class="flex-1 py-2.5 bg-brand-primary hover:bg-indigo-600 text-white font-bold rounded-xl text-xs transition">Kirim ke Email</button>
+                            <button type="button" onclick="sendViaWA()" class="px-4 py-2.5 bg-brand-whatsapp hover:bg-emerald-600 text-slate-950 font-bold rounded-xl text-xs transition flex items-center gap-1.5">
+                                <span>WA Chat</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="py-6 text-center text-xs text-slate-500 border-t border-slate-800/80 no-print relative z-10">
+        &copy; 2026 M. Azkiya &mdash; Enterprise Software Architecture & Production Standards.
+    </footer>
+
+    <!-- 3. Modern Interactive JavaScript -->
+    <script>
+        // Data Kontak
+        const CONTACT_INFO = {
+            email: 'angkiyaaja01@gmail.com',
+            phone: '08582030543',
+            waNumber: '628582030543'
+        };
+
+        // Efek Ambient Glow Bergerak Mengikuti Posisi Kursor Mouse
+        window.addEventListener('mousemove', (e) => {
+            document.documentElement.style.setProperty('--mouse-x', `${e.clientX}px`);
+            document.documentElement.style.setProperty('--mouse-y', `${e.clientY}px`);
+        });
+
+        // Simulasi Hak Akses Role
+        function switchRole(role) {
+            const emailSpan = document.getElementById('contact-email');
+            const phoneSpan = document.getElementById('contact-phone');
+            const waSpan = document.getElementById('contact-wa');
+            const confidentialProject = document.getElementById('confidential-project');
+            const recruiterBox = document.getElementById('recruiter-box');
+
+            // Reset visual tombol
+            ['public', 'recruiter', 'admin'].forEach(r => {
+                const btn = document.getElementById(`btn-${r}`);
+                btn.className = 'px-3 py-1 rounded-lg text-slate-400 hover:text-white transition';
+            });
+            document.getElementById(`btn-${role}`).className = 'px-3 py-1 rounded-lg bg-brand-primary text-white font-semibold transition';
+
+            if (role === 'recruiter' || role === 'admin') {
+                emailSpan.innerHTML = `✉️ <a href="mailto:${CONTACT_INFO.email}" class="hover:text-brand-accent transition">${CONTACT_INFO.email}</a>`;
+                emailSpan.className = 'flex items-center gap-1.5 text-slate-200 font-mono-code font-medium';
+                
+                phoneSpan.innerHTML = `📞 <a href="tel:${CONTACT_INFO.phone}" class="hover:text-brand-accent transition">${CONTACT_INFO.phone}</a>`;
+                phoneSpan.className = 'flex items-center gap-1.5 text-slate-200 font-mono-code font-medium';
+
+                waSpan.innerHTML = `💬 <a href="https://wa.me/${CONTACT_INFO.waNumber}" target="_blank" class="text-emerald-400 hover:underline">WhatsApp Direct</a>`;
+                waSpan.className = 'flex items-center gap-1.5 font-mono-code font-medium';
+
+                confidentialProject.classList.remove('hidden');
+                recruiterBox.classList.remove('hidden');
+            } else {
+                emailSpan.innerHTML = '🔒 Akses Recruiter untuk info kontak privat';
+                emailSpan.className = 'flex items-center gap-1.5 text-slate-500 italic';
+
+                phoneSpan.innerHTML = '';
+                phoneSpan.className = '';
+
+                waSpan.innerHTML = '';
+                waSpan.className = '';
+
+                confidentialProject.classList.add('hidden');
+                recruiterBox.classList.add('hidden');
+            }
+        }
+
+        // Filter Keahlian Dinamis
+        function filterCategory(category) {
+            const rows = document.querySelectorAll('.skill-row');
+            rows.forEach(row => {
+                if (category === 'all' || row.getAttribute('data-cat') === category) {
+                    row.style.display = 'block';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+
+            document.querySelectorAll('.cat-btn').forEach(btn => {
+                btn.classList.remove('bg-brand-primary', 'text-white');
+                btn.classList.add('bg-slate-800', 'text-slate-400');
+            });
+            event.target.classList.add('bg-brand-primary', 'text-white');
+            event.target.classList.remove('bg-slate-800', 'text-slate-400');
+        }
+
+        function handleContact(e) {
+            e.preventDefault();
+            const val = document.getElementById('recruiter-input').value;
+            alert(`Pesan berhasil dikirimkan ke email M. Azkiya (${CONTACT_INFO.email}):\n"${val}"`);
+            document.getElementById('recruiter-input').value = '';
+        }
+
+        // Kirim Input Form Langsung ke Obrolan WhatsApp
+        function sendViaWA() {
+            const val = document.getElementById('recruiter-input').value.trim();
+            const text = val ? encodeURIComponent(`Halo M. Azkiya, saya ingin mendiskusikan: "${val}"`) : encodeURIComponent("Halo M. Azkiya, saya ingin mendiskusikan peluang kerja sama.");
+            window.open(`https://wa.me/${CONTACT_INFO.waNumber}?text=${text}`, '_blank');
+        }
+    </script>
+</body>
+</html>
