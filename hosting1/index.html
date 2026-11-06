@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PeTIK II Jombang | Pesantren Teknologi Informasi & Komunikasi</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Plus Jakarta Sans & Playfair Display -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- AOS Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class', // Mengaktifkan Dark Mode
+            theme: {
+                extend: {
+                    colors: {
+                        desa: {
+                            50: '#f4f7f4',
+                            100: '#e5ede5',
+                            200: '#cddfce',
+                            300: '#a5c6a7',
+                            500: '#4e8d53',
+                            600: '#3c7241',
+                            700: '#2d5431',
+                            800: '#1b3820',
+                            900: '#0f2414',
+                            950: '#08170c',
+                        },
+                        tanah: {
+                            50: '#fbf9f5',
+                            100: '#f5f0e8',
+                            500: '#b48a5c',
+                            700: '#7c5a36',
+                            900: '#432f1a',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Transisi Global untuk Dark Mode yang Mulus */
+        body {
+            transition: background-color 0.5s ease, color 0.5s ease;
+        }
+
+        /* Ambient Leaf Animation */
+        .leaf {
+            position: absolute;
+            width: 18px;
+            height: 18px;
+            background: rgba(78, 141, 83, 0.18);
+            border-radius: 0 100% 0 100%;
+            pointer-events: none;
+            animation: floatLeaf 15s infinite linear;
+        }
+        html.dark .leaf {
+            background: rgba(78, 141, 83, 0.08); /* Lebih redup di mode gelap */
+        }
+        @keyframes floatLeaf {
+            0% { transform: translateY(-50px) rotate(0deg) translateX(0); opacity: 0; }
+            30% { opacity: 0.7; }
+            100% { transform: translateY(105vh) rotate(420deg) translateX(120px); opacity: 0; }
+        }
+
+        /* Subtle Floating Badge */
+        @keyframes smoothFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+        }
+        .floating-badge {
+            animation: smoothFloat 4s ease-in-out infinite;
+        }
+
+        /* Gradient Text Animation */
+        .text-gradient-animate {
+            background: linear-gradient(to right, #1b3820, #4e8d53, #1b3820);
+            background-size: 200% auto;
+            color: transparent;
+            -webkit-background-clip: text;
+            background-clip: text;
+            animation: shine 4s linear infinite;
+        }
+        html.dark .text-gradient-animate {
+            background: linear-gradient(to right, #a5c6a7, #e5ede5, #a5c6a7);
+            background-size: 200% auto;
+            color: transparent;
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+        @keyframes shine {
+            to { background-position: 200% center; }
+        }
+
+        /* Glassmorphism Dinamis (Terang/Gelap) */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.90);
+            backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 255, 255, 0.75);
+            transition: background 0.5s ease, border-color 0.5s ease;
+        }
+        html.dark .glass-card {
+            background: rgba(15, 23, 20, 0.85); /* Hijau Sangat Gelap */
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Click Ripple Effect */
+        .btn-ripple {
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-ripple:after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            background-image: radial-gradient(circle, rgba(255,255,255,0.4) 10%, transparent 10.01%);
+            background-repeat: no-repeat;
+            background-position: 50%;
+            transform: scale(10, 10);
+            opacity: 0;
+            transition: transform .4s, opacity .8s;
+        }
+        .btn-ripple:active:after {
+            transform: scale(0, 0);
+            opacity: 0.5;
+            transition: 0s;
+        }
+
+        /* Scroll Progress Bar */
+        #scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(to right, #4e8d53, #a5c6a7);
+            width: 0%;
+            z-index: 100;
+            transition: width 0.1s ease-out;
+        }
+
+        /* Lightbox modal */
+        #lightboxModal {
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        #lightboxModal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+    </style>
+</head>
+<body class="bg-desa-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 font-sans antialiased overflow-x-hidden selection:bg-desa-500 selection:text-white relative transition-colors duration-500">
+
+    <!-- Scroll Progress Bar -->
+    <div id="scroll-progress"></div>
+
+    <!-- Efek Daun Latar Belakang -->
+    <div id="leaves-container" class="fixed inset-0 overflow-hidden pointer-events-none z-0"></div>
+
+    <!-- NAVBAR -->
+    <nav id="navbar" class="fixed w-full top-0 left-0 z-40 transition-all duration-300 py-3 px-4 md:px-10">
+        <div class="max-w-7xl mx-auto flex items-center justify-between glass-card px-5 py-2.5 rounded-2xl shadow-sm">
+            <!-- Logo Resmi -->
+            <a href="#" class="flex items-center gap-3 bg-white/80 dark:bg-white/90 p-1 rounded-xl">
+                <img src="WhatsApp Image 2026-11-06 at 18.39.39.jpeg" alt="Logo PeTIK Jombang & YBM PLN" class="h-10 sm:h-12 w-auto object-contain">
+            </a>
+
+            <!-- Menu Desktop -->
+            <div class="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-600 dark:text-slate-300">
+                <a href="#tentang" class="hover:text-desa-700 dark:hover:text-desa-300 transition">Tentang</a>
+                <a href="#fasilitas" class="hover:text-desa-700 dark:hover:text-desa-300 transition">Kampus & Asrama</a>
+                <a href="#galeri" class="hover:text-desa-700 dark:hover:text-desa-300 transition">Galeri Suasana</a>
+                <a href="#lokasi" class="hover:text-desa-700 dark:hover:text-desa-300 transition">Lokasi & Kontak</a>
+            </div>
+
+            <div class="hidden md:flex items-center gap-4">
+                <!-- Theme Toggle Button -->
+                <button id="theme-toggle" class="text-slate-500 dark:text-slate-400 hover:text-desa-600 dark:hover:text-desa-300 focus:outline-none transition-transform hover:scale-110">
+                    <i id="theme-icon" class="fa-solid fa-moon text-lg"></i>
+                </button>
+
+                <!-- Tombol Pendaftaran Nav -->
+                <a href="#pendaftaran" class="btn-ripple inline-flex items-center gap-2 bg-desa-700 hover:bg-desa-800 text-white text-xs uppercase tracking-wider font-bold px-5 py-2.5 rounded-xl shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5">
+                    <span>Daftar Mahasantri</span>
+                    <i class="fa-solid fa-arrow-right text-[11px]"></i>
+                </a>
+            </div>
+
+            <!-- Mobile Buttons -->
+            <div class="flex md:hidden items-center gap-4">
+                <button id="theme-toggle-mobile" class="text-slate-500 dark:text-slate-400 focus:outline-none">
+                    <i id="theme-icon-mobile" class="fa-solid fa-moon text-lg"></i>
+                </button>
+                <button id="menu-btn" class="text-desa-800 dark:text-slate-200 p-2 focus:outline-none">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden glass-card mt-3 p-5 rounded-2xl shadow-xl flex flex-col gap-4 text-center font-semibold z-50">
+            <a href="#tentang" class="text-slate-700 dark:text-slate-300 py-1">Tentang</a>
+            <a href="#fasilitas" class="text-slate-700 dark:text-slate-300 py-1">Kampus & Asrama</a>
+            <a href="#galeri" class="text-slate-700 dark:text-slate-300 py-1">Galeri Suasana</a>
+            <a href="#lokasi" class="text-slate-700 dark:text-slate-300 py-1">Lokasi & Kontak</a>
+            <a href="#pendaftaran" class="bg-desa-700 text-white py-2.5 rounded-xl font-bold shadow-md">Daftar Mahasantri Baru</a>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <header class="relative pt-32 pb-20 md:pt-44 md:pb-28 px-6 overflow-hidden">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            
+            <div class="lg:col-span-7 space-y-6 relative z-10" data-aos="fade-right" data-aos-duration="900">
+                <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-desa-100 dark:bg-desa-900/50 border border-desa-200 dark:border-desa-700 text-desa-800 dark:text-desa-200 text-xs font-semibold backdrop-blur-md">
+                    <span class="w-2 h-2 rounded-full bg-desa-500 animate-ping"></span>
+                    <span>Pesantren Teknologi Informasi dan Komunikasi II</span>
+                </div>
+
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold font-serif text-desa-900 dark:text-white leading-tight">
+                    Kesejukan Desa, <br>
+                    <span class="text-gradient-animate italic">Kecerdasan Digital</span> <br class="hidden md:block">
+                    Santri Masa Depan.
+                </h1>
+
+                <p class="text-slate-600 dark:text-slate-400 text-base sm:text-lg leading-relaxed max-w-xl font-light">
+                    PeTIK II Jombang hadir di lingkungan asri pedesaan Jawa Timur untuk mencetak programmer andal berkarakter kuat, beradab, dan siap berkarya untuk umat dan bangsa.
+                </p>
+
+                <div class="flex flex-wrap items-center gap-4 pt-2">
+                    <a href="#pendaftaran" class="btn-ripple bg-desa-700 hover:bg-desa-800 text-white font-semibold px-7 py-3.5 rounded-xl shadow-lg shadow-desa-700/25 transition-all transform hover:-translate-y-1 active:translate-y-0 flex items-center gap-3">
+                        <i class="fa-solid fa-user-plus"></i>
+                        <span>Daftar Mahasantri Baru</span>
+                    </a>
+                    <a href="#galeri" class="bg-white dark:bg-slate-800 hover:bg-desa-50 dark:hover:bg-slate-700 text-desa-800 dark:text-slate-200 font-semibold px-6 py-3.5 rounded-xl border border-desa-200 dark:border-slate-600 transition-all flex items-center gap-2 shadow-sm group">
+                        <i class="fa-solid fa-images text-desa-600 dark:text-desa-400 group-hover:scale-110 transition-transform"></i>
+                        <span>Lihat Dokumentasi</span>
+                    </a>
+                </div>
+
+                <!-- Highlight Poin -->
+                <div class="grid grid-cols-3 gap-6 pt-6 border-t border-desa-200 dark:border-slate-700/50 max-w-lg">
+                    <div>
+                        <div class="text-2xl font-black text-desa-800 dark:text-white">100%</div>
+                        <div class="text-xs text-slate-500 dark:text-slate-400 font-medium">Beasiswa Penuh YBM PLN</div>
+                    </div>
+                    <div>
+                        <div class="text-2xl font-black text-desa-800 dark:text-white">Amphitheater</div>
+                        <div class="text-xs text-slate-500 dark:text-slate-400 font-medium">Ruang Terbuka Santri</div>
+                    </div>
+                    <div>
+                        <div class="text-2xl font-black text-desa-800 dark:text-white">IT & Diniyah</div>
+                        <div class="text-xs text-slate-500 dark:text-slate-400 font-medium">Kultur Beradab</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hero Image & Floating Badge Diperbaiki -->
+            <div class="lg:col-span-5 relative z-10" data-aos="fade-left" data-aos-duration="900">
+                <div class="relative mx-auto w-full max-w-md">
+                    <!-- Glow dekoratif di belakang gambar -->
+                    <div class="absolute -inset-3 bg-gradient-to-tr from-desa-600 via-desa-300 to-tanah-500 rounded-3xl blur-2xl opacity-30 dark:opacity-20 animate-pulse"></div>
+                    
+                    <div class="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white dark:border-slate-700 aspect-[9/14] bg-desa-200 group cursor-pointer" onclick="openLightbox('foto1/WhatsApp Image 2026-11-06 at 10.38.47.jpeg', 'Gerbang Utama Pesantren Teknologi Informasi dan Komunikasi (PeTIK II) Jombang')">
+                        <img src="foto1/WhatsApp Image 2026-11-06 at 10.38.47.jpeg" alt="Gerbang PeTIK 2 Jombang" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                        
+                        <div class="absolute inset-0 bg-gradient-to-t from-desa-900/90 via-transparent to-transparent flex flex-col justify-end p-6 text-white">
+                            <span class="text-xs font-semibold uppercase tracking-wider text-desa-200 flex items-center gap-1.5">
+                                <i class="fa-solid fa-location-dot"></i> Gerbang Masuk Kampus
+                            </span>
+                            <p class="font-serif text-lg font-bold mt-1 shadow-black/50">Pesantren PeTIK II Jombang</p>
+                            <span class="text-xs text-desa-300 mt-0.5">Klik untuk memperbesar tampilan</span>
+                        </div>
+                    </div>
+
+                    <!-- Floating Badge: DIPINDAHKAN AGAR TIDAK MENUTUPI GAMBAR -->
+                    <div class=" -right-9 sm:-right-12 glass-card px-4 py-3 rounded-2xl shadow-2xl border border-white/80 dark:border-white/10 flex items-center gap-3.5 floating-badge z-20">
+                        <div class="w-11 h-11 rounded-xl bg-desa-800 text-white flex items-center justify-center text-lg shadow-md">
+                            <i class="fa-solid fa-mosque"></i>
+                        </div>
+                        <div class="pr-2">
+                            <div class="text-[10px] text-slate-500 dark:text-slate-400 font-extrabold uppercase tracking-widest">Lingkungan Hijau</div>
+                            <div class="text-sm font-bold text-desa-950 dark:text-white">Teduh, Hening & Fokus</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- FASILITAS KAMPUS -->
+    <section id="fasilitas" class="py-20 px-6 bg-white/70 dark:bg-slate-800/50 relative">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+                
+                <!-- Foto Amphitheater -->
+                <div class="lg:col-span-6 relative" data-aos="zoom-in">
+                    <div class="relative rounded-3xl overflow-hidden shadow-xl border border-desa-200 dark:border-slate-600 group cursor-pointer" onclick="openLightbox('WhatsApp Image 2026-11-06 at 18.38.19.jpeg', 'Gedung Asrama & Amphitheater Terbuka PeTIK 2 Jombang')">
+                        <img src="WhatsApp Image 2026-11-06 at 18.38.19.jpeg" alt="Amphitheater PeTIK 2 Jombang" class="w-full h-[450px] object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors"></div>
+                        <div class="absolute bottom-4 left-4 right-4 glass-card p-4 rounded-xl flex items-center justify-between">
+                            <div>
+                                <h4 class="font-bold text-desa-900 dark:text-white text-sm">Amphitheater & Gedung Belajar</h4>
+                                <p class="text-xs text-slate-600 dark:text-slate-300">Kombinasi taman hijau & diskusi terbuka</p>
+                            </div>
+                            <span class="w-8 h-8 rounded-lg bg-desa-700 text-white flex items-center justify-center text-xs shadow"><i class="fa-solid fa-expand"></i></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Deskripsi Nilai Kampus -->
+                <div class="lg:col-span-6 space-y-6" data-aos="fade-left">
+                    <span class="text-xs uppercase font-extrabold tracking-widest text-desa-600 dark:text-desa-400 bg-desa-100 dark:bg-desa-900/50 px-3 py-1 rounded-full">Fasilitas Kampus</span>
+                    <h2 class="text-3xl sm:text-4xl font-serif font-bold text-desa-900 dark:text-white leading-snug">
+                        Ruang Belajar Terbuka di Tengah Hamparan Hijau
+                    </h2>
+                    <p class="text-slate-600 dark:text-slate-300 leading-relaxed text-sm sm:text-base">
+                        Gedung bertingkat modern yang dipadukan dengan tribun amphitheater melingkar, lapangan olahraga santri, serta semilir pepohonan rindang. Konsep ini menghadirkan kenyamanan bagi santri untuk berdiskusi, *code review*, dan menghafal di udara terbuka.
+                    </p>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+                        <div class="p-4 rounded-2xl bg-desa-50 dark:bg-slate-700/50 border border-desa-100 dark:border-slate-600/50 flex items-start gap-3 hover:shadow-md transition">
+                            <i class="fa-solid fa-wifi text-desa-600 dark:text-desa-400 mt-1"></i>
+                            <div>
+                                <h5 class="font-bold text-desa-900 dark:text-white text-sm">Konektivitas Cepat</h5>
+                                <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Mendukung *coding* & *live project* santri.</p>
+                            </div>
+                        </div>
+                        <div class="p-4 rounded-2xl bg-desa-50 dark:bg-slate-700/50 border border-desa-100 dark:border-slate-600/50 flex items-start gap-3 hover:shadow-md transition">
+                            <i class="fa-solid fa-volleyball text-desa-600 dark:text-desa-400 mt-1"></i>
+                            <div>
+                                <h5 class="font-bold text-desa-900 dark:text-white text-sm">Olahraga Terpadu</h5>
+                                <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Lapangan serbaguna penjaga fisik santri.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- GALERI KEGIATAN -->
+    <section id="galeri" class="py-20 px-6">
+        <div class="max-w-7xl mx-auto">
+            
+            <div class="text-center max-w-2xl mx-auto mb-10" data-aos="fade-up">
+                <span class="text-xs uppercase font-extrabold tracking-widest text-desa-600 dark:text-desa-400 bg-desa-100 dark:bg-desa-900/50 px-3 py-1 rounded-full">Dokumentasi Nyata</span>
+                <h2 class="text-3xl sm:text-4xl font-serif font-bold text-desa-900 dark:text-white mt-3">Kehidupan Sehari-hari di PeTIK II Jombang</h2>
+                <p class="text-slate-600 dark:text-slate-400 mt-2 text-sm">Klik salah satu foto untuk melihat detail suasana, keakraban, dan kegiatan santri secara utuh.</p>
+            </div>
+
+            <!-- Tombol Filter Interaktif -->
+            <div class="flex flex-wrap justify-center gap-2 mb-10" data-aos="fade-up">
+                <button onclick="filterGallery('all')" class="gallery-filter-btn px-4 py-2 rounded-xl text-xs font-bold transition bg-desa-700 text-white shadow-sm" data-filter="all">Semua Foto</button>
+                <button onclick="filterGallery('fasilitas')" class="gallery-filter-btn px-4 py-2 rounded-xl text-xs font-bold transition bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-desa-100 dark:hover:bg-slate-700 border border-transparent dark:border-slate-700" data-filter="fasilitas">Kampus & Lingkungan</button>
+                <button onclick="filterGallery('santri')" class="gallery-filter-btn px-4 py-2 rounded-xl text-xs font-bold transition bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-desa-100 dark:hover:bg-slate-700 border border-transparent dark:border-slate-700" data-filter="santri">Aktivitas & Kebersamaan</button>
+                <button onclick="filterGallery('edukasi')" class="gallery-filter-btn px-4 py-2 rounded-xl text-xs font-bold transition bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-desa-100 dark:hover:bg-slate-700 border border-transparent dark:border-slate-700" data-filter="edukasi">Kajian & Wawasan</button>
+            </div>
+
+            <!-- Grid Foto Galeri Asli -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                <!-- 1. Foto Angkatan Santri di Amphitheater -->
+                <div class="gallery-item group relative rounded-2xl overflow-hidden aspect-[4/3] shadow-md hover:shadow-[0_0_20px_rgba(78,141,83,0.3)] bg-desa-100 dark:bg-slate-800 cursor-pointer border border-desa-100 dark:border-slate-700 transition-shadow" data-category="santri" onclick="openLightbox('foto3/WhatsApp Image 2026-11-06 at 10.38.49.jpeg', 'Keluarga Besar Mahasantri PeTIK 2 Jombang di Tribun Terbuka')">
+                    <img src="foto3/WhatsApp Image 2026-11-06 at 10.38.49.jpeg" alt="Santri PeTIK 2 Jombang" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-5 text-white">
+                        <span class="text-xs text-desa-300 font-bold uppercase tracking-wider">Aktivitas Santri</span>
+                        <h4 class="font-bold text-sm">Keluarga Mahasantri PeTIK 2</h4>
+                    </div>
+                </div>
+
+                <!-- 2. Foto Olahraga -->
+                <div class="gallery-item group relative rounded-2xl overflow-hidden aspect-[4/3] shadow-md hover:shadow-[0_0_20px_rgba(78,141,83,0.3)] bg-desa-100 dark:bg-slate-800 cursor-pointer border border-desa-100 dark:border-slate-700 transition-shadow" data-category="santri" onclick="openLightbox('foto4/WhatsApp Image 2026-11-06 at 12.25.24.jpeg', 'Senam Pagi dan Kebugaran Santri di Lapangan Kampus PeTIK 2 Jombang')">
+                    <img src="foto4/WhatsApp Image 2026-11-06 at 12.25.24.jpeg" alt="Senam Santri Lapangan" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-5 text-white">
+                        <span class="text-xs text-desa-300 font-bold uppercase tracking-wider">Kebugaran Fisik</span>
+                        <h4 class="font-bold text-sm">Olahraga Pagi Bersama</h4>
+                    </div>
+                </div>
+
+                <!-- 3. Foto Ziarah Tebuireng -->
+                <div class="gallery-item group relative rounded-2xl overflow-hidden aspect-[4/3] shadow-md hover:shadow-[0_0_20px_rgba(78,141,83,0.3)] bg-desa-100 dark:bg-slate-800 cursor-pointer border border-desa-100 dark:border-slate-700 transition-shadow" data-category="edukasi" onclick="openLightbox('WhatsApp Image 2026-11-06 at 10.38.44.jpeg', 'Kunjungan dan Napak Tilas Sejarah Pesantren Tebuireng Jombang')">
+                    <img src="WhatsApp Image 2026-11-06 at 10.38.44.jpeg" alt="Ziarah Tebuireng" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-5 text-white">
+                        <span class="text-xs text-desa-300 font-bold uppercase tracking-wider">Adab & Tradisi</span>
+                        <h4 class="font-bold text-sm">Napak Tilas Ulama Jombang</h4>
+                    </div>
+                </div>
+
+                <!-- 4. Foto Malam Keakraban -->
+                <div class="gallery-item group relative rounded-2xl overflow-hidden aspect-[4/3] shadow-md hover:shadow-[0_0_20px_rgba(78,141,83,0.3)] bg-desa-100 dark:bg-slate-800 cursor-pointer border border-desa-100 dark:border-slate-700 transition-shadow" data-category="santri" onclick="openLightbox('WhatsApp Image 2026-11-06 at 10.36.19.jpeg', 'Malam Keakraban Santri PeTIK 2: Makan Bersama di Lapangan')">
+                    <img src="WhatsApp Image 2026-11-06 at 10.36.19.jpeg" alt="Makan Bersama Santri" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-5 text-white">
+                        <span class="text-xs text-desa-300 font-bold uppercase tracking-wider">Ukhuwah Santri</span>
+                        <h4 class="font-bold text-sm">Malam Makan Bersama</h4>
+                    </div>
+                </div>
+
+                <!-- 5. Foto Gerbang/Pos -->
+                <div class="gallery-item group relative rounded-2xl overflow-hidden aspect-[4/3] shadow-md hover:shadow-[0_0_20px_rgba(78,141,83,0.3)] bg-desa-100 dark:bg-slate-800 cursor-pointer border border-desa-100 dark:border-slate-700 transition-shadow" data-category="fasilitas" onclick="openLightbox('WhatsApp Image 2026-11-06 at 10.38.47 (1).jpeg', 'Suasana Tenang Gerbang Masuk & Pos Keamanan PeTIK 2 Jombang')">
+                    <img src="WhatsApp Image 2026-11-06 at 10.38.47 (1).jpeg" alt="Pintu Gerbang & Pos" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-5 text-white">
+                        <span class="text-xs text-desa-300 font-bold uppercase tracking-wider">Fasilitas Kampus</span>
+                        <h4 class="font-bold text-sm">Gerbang Lingkungan Kampus</h4>
+                    </div>
+                </div>
+
+                <!-- 6. Foto Peta Islam Nusantara -->
+                <div class="gallery-item group relative rounded-2xl overflow-hidden aspect-[4/3] shadow-md hover:shadow-[0_0_20px_rgba(78,141,83,0.3)] bg-desa-100 dark:bg-slate-800 cursor-pointer border border-desa-100 dark:border-slate-700 transition-shadow" data-category="edukasi" onclick="openLightbox('WhatsApp Image 2026-11-06 at 10.38.48 (1).jpeg', 'Peta Sejarah Perkembangan Islam Nusantara: Edukasi Wawasan Kebangsaan')">
+                    <img src="WhatsApp Image 2026-11-06 at 10.38.48 (1).jpeg" alt="Peta Islam Nusantara" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-5 text-white">
+                        <span class="text-xs text-desa-300 font-bold uppercase tracking-wider">Wawasan Sejarah</span>
+                        <h4 class="font-bold text-sm">Kajian Islam Nusantara</h4>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- FORM PENDAFTARAN -->
+    <section id="pendaftaran" class="py-20 px-6 relative bg-gradient-to-b from-white to-desa-50 dark:from-slate-900 dark:to-slate-800/50">
+        <div class="max-w-4xl mx-auto">
+            <div class="glass-card border-2 border-desa-200 dark:border-slate-600 rounded-3xl p-8 sm:p-12 shadow-2xl relative overflow-hidden" data-aos="fade-up">
+                
+                <div class="text-center mb-10">
+                    <span class="px-4 py-1.5 rounded-full bg-desa-600 dark:bg-desa-500 text-white text-xs font-bold uppercase tracking-wider shadow-sm">
+                        Penerimaan Mahasantri Baru (PMB)
+                    </span>
+                    <h2 class="text-3xl sm:text-4xl font-serif font-bold text-desa-900 dark:text-white mt-4">Formulir Pendaftaran Calon Mahasantri</h2>
+                    <p class="text-slate-600 dark:text-slate-300 text-sm mt-2 max-w-lg mx-auto">Bergabunglah dalam program beasiswa penuh pembelajaran software development dan pendidikan karakter santri di PeTIK II Jombang.</p>
+                </div>
+
+                <form id="regForm" class="space-y-6">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-2">Nama Lengkap</label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400">
+                                    <i class="fa-regular fa-user"></i>
+                                </span>
+                                <input type="text" id="form-nama" required placeholder="Contoh: Maha santri" class="w-full pl-11 pr-4 py-3 rounded-xl border border-slate-200 dark:border-slate-600 focus:outline-none focus:ring-2 focus:ring-desa-500 bg-white/70 dark:bg-slate-800/80 text-sm dark:text-white transition-colors">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-2">Nomor WhatsApp Aktif</label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400">
+                                    <i class="fa-brands fa-whatsapp"></i>
+                                </span>
+                                <input type="tel" id="form-wa" required placeholder="Contoh: 08xxxxxxxxxx" class="w-full pl-11 pr-4 py-3 rounded-xl border border-slate-200 dark:border-slate-600 focus:outline-none focus:ring-2 focus:ring-desa-500 bg-white/70 dark:bg-slate-800/80 text-sm dark:text-white transition-colors">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-2">Alamat Email</label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400">
+                                    <i class="fa-regular fa-envelope"></i>
+                                </span>
+                                <input type="email" id="form-email" required placeholder="nama@email.com" class="w-full pl-11 pr-4 py-3 rounded-xl border border-slate-200 dark:border-slate-600 focus:outline-none focus:ring-2 focus:ring-desa-500 bg-white/70 dark:bg-slate-800/80 text-sm dark:text-white transition-colors">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-2">Kota / Asal Daerah</label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400">
+                                    <i class="fa-solid fa-location-dot"></i>
+                                </span>
+                                <input type="text" id="form-asal" required placeholder="Contoh: Jombang, Jawa Timur" class="w-full pl-11 pr-4 py-3 rounded-xl border border-slate-200 dark:border-slate-600 focus:outline-none focus:ring-2 focus:ring-desa-500 bg-white/70 dark:bg-slate-800/80 text-sm dark:text-white transition-colors">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-2">Peminatan Utama</label>
+                        <select id="form-peminatan" class="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-600 focus:outline-none focus:ring-2 focus:ring-desa-500 bg-white/70 dark:bg-slate-800/80 text-sm text-slate-700 dark:text-white transition-colors">
+                            <option value="Full-Stack Web Development">Full-Stack Web Development (Python, Flask, SQLite, Tailwind)</option>
+                            <option value="Software Engineering & Algorithms">Software Engineering & Computer Logic Algorithms</option>
+                            <option value="Jaringan & Sistem Komputer">Jaringan Komputer & Administrasi Server</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-2">Motivasi & Komitmen Santri</label>
+                        <textarea id="form-pesan" rows="3" placeholder="Ceritakan motivasi Anda dan kesiapan mengikuti pendidikan pesantren intensif..." class="w-full p-4 rounded-xl border border-slate-200 dark:border-slate-600 focus:outline-none focus:ring-2 focus:ring-desa-500 bg-white/70 dark:bg-slate-800/80 text-sm dark:text-white transition-colors"></textarea>
+                    </div>
+
+                    <button type="submit" class="btn-ripple w-full bg-desa-700 hover:bg-desa-800 text-white font-bold py-4 rounded-xl shadow-lg shadow-desa-700/30 transition-all transform hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center gap-2">
+                        <span>Kirim Pendaftaran via WhatsApp</span>
+                        <i class="fa-brands fa-whatsapp text-lg"></i>
+                    </button>
+                </form>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- LOKASI & KONTAK -->
+    <section id="lokasi" class="py-20 px-6 bg-desa-900 text-white relative border-t border-desa-800">
+        <div class="max-w-7xl mx-auto">
+            
+            <div class="text-center max-w-2xl mx-auto mb-16" data-aos="fade-up">
+                <span class="text-xs uppercase font-extrabold tracking-widest text-desa-300 bg-desa-800 px-3 py-1 rounded-full">Hubungi Kampus</span>
+                <h2 class="text-3xl sm:text-4xl font-serif font-bold text-white mt-3">Lokasi & Kanal Resmi</h2>
+                <p class="text-desa-200 mt-2 text-sm">Kunjungi kampus kami di Jombang atau ikuti perkembangan kegiatan santri melalui media sosial resmi.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                
+                <!-- Google Maps Embed -->
+                <div class="lg:col-span-7 rounded-2xl overflow-hidden shadow-2xl border border-desa-700" data-aos="fade-right">
+                    <div class="bg-desa-800 p-4 flex items-center justify-between border-b border-desa-700">
+                        <div class="flex items-center gap-2 text-sm text-desa-200 font-medium">
+                            <i class="fa-solid fa-map-location-dot text-desa-400"></i>
+                            <span>Peta Lokasi PeTIK II Jombang, Jawa Timur</span>
+                        </div>
+                        <a href="https://maps.app.goo.gl/eivXpUMGRSZTHE3h9" target="_blank" class="text-xs bg-desa-700 hover:bg-desa-600 px-3 py-1.5 rounded-lg text-white font-medium transition flex items-center gap-1">
+                            <span>Buka Maps</span>
+                            <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                        </a>
+                    </div>
+                    
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126497.10271701337!2d122.18129715!3d-7.546839399999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e783fe1a221f737%3A0x3027a76e352bbf0!2sJombang%2C%20Jombang%20Regency%2C%20East%20Java!5e0!3m2!1sen!2sid!4v1700000000000!5m2!1sen!2sid" 
+                        class="w-full h-80 border-0 filter grayscale hover:grayscale-0 transition-all duration-700" 
+                        allowfullscreen="" 
+                        loading="lazy">
+                    </iframe>
+                </div>
+
+                <!-- 4 Media Sosial -->
+                <div class="lg:col-span-5 space-y-4" data-aos="fade-left">
+                    <h3 class="text-xl font-bold text-white mb-2">Media Sosial & Komunikasi</h3>
+                    
+                    <a href="https://wa.me/6281393963363" target="_blank" class="btn-ripple flex items-center gap-4 p-4 rounded-xl bg-desa-800 hover:bg-desa-700 border border-desa-700 transition group shadow-sm">
+                        <div class="w-12 h-12 rounded-lg bg-green-500/20 text-green-400 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
+                            <i class="fa-brands fa-whatsapp"></i>
+                        </div>
+                        <div>
+                            <span class="text-xs text-desa-300 uppercase font-semibold">WhatsApp Resmi</span>
+                            <div class="text-base font-bold text-white">WA ADMIN</div>
+                        </div>
+                    </a>
+
+                    <a href="https://www.instagram.com/petik_jombang/?utm_source=ig_web_button_share_sheet" target="_blank" class="btn-ripple flex items-center gap-4 p-4 rounded-xl bg-desa-800 hover:bg-desa-700 border border-desa-700 transition group shadow-sm">
+                        <div class="w-12 h-12 rounded-lg bg-pink-500/20 text-pink-400 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
+                            <i class="fa-brands fa-instagram"></i>
+                        </div>
+                        <div>
+                            <span class="text-xs text-desa-300 uppercase font-semibold">Instagram</span>
+                            <div class="text-base font-bold text-white">@petik_jombang</div>
+                        </div>
+                    </a>
+
+                    <a href="https://www.tiktok.com/@petikjombang?is_from_webapp=1&sender_device=pc" target="_blank" class="btn-ripple flex items-center gap-4 p-4 rounded-xl bg-desa-800 hover:bg-desa-700 border border-desa-700 transition group shadow-sm">
+                        <div class="w-12 h-12 rounded-lg bg-cyan-500/20 text-cyan-300 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
+                            <i class="fa-brands fa-tiktok"></i>
+                        </div>
+                        <div>
+                            <span class="text-xs text-desa-300 uppercase font-semibold">TikTok Kampus</span>
+                            <div class="text-base font-bold text-white">@petik2jombang</div>
+                        </div>
+                    </a>
+
+                    <a href="https://youtube.com/@tvsantrijombang?si=5rVXIg_LayTPhnXv" target="_blank" class="btn-ripple flex items-center gap-4 p-4 rounded-xl bg-desa-800 hover:bg-desa-700 border border-desa-700 transition group shadow-sm">
+                        <div class="w-12 h-12 rounded-lg bg-red-500/20 text-red-400 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
+                            <i class="fa-brands fa-youtube"></i>
+                        </div>
+                        <div>
+                            <span class="text-xs text-desa-300 uppercase font-semibold">YouTube Channel</span>
+                            <div class="text-base font-bold text-white">PeTIK Jombang Official</div>
+                        </div>
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- FOOTER DENGAN LOGO -->
+    <footer class="bg-desa-950 dark:bg-black border-t border-desa-900 py-10 px-6 text-xs text-desa-400">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="flex items-center gap-4">
+                <img src="WhatsApp Image 2026-11-06 at 18.39.39.jpeg" alt="Logo PeTIK Jombang YBM PLN" class="h-10 w-auto object-contain bg-white/90 p-1.5 rounded-lg shadow-sm">
+                <div>
+                    <p class="font-bold text-white text-sm">PeTIK II Jombang</p>
+                    <p class="text-desa-300">Pesantren Teknologi Informasi dan Komunikasi YBM PLN.</p>
+                </div>
+            </div>
+            <p class="text-center md:text-right">&copy; 2026 PeTIK II Jombang.<br>Mengharmonikan Sains Komputer dan Adab Islam di Tanah Jombang.</p>
+        </div>
+    </footer>
+
+    <!-- INTERACTIVE LIGHTBOX MODAL -->
+    <div id="lightboxModal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md opacity-0 pointer-events-none flex items-center justify-center p-4">
+        <button onclick="closeLightbox()" class="absolute top-6 right-6 text-white text-3xl hover:text-desa-300 transition focus:outline-none">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+        <div class="max-w-4xl w-full flex flex-col items-center">
+            <img id="lightboxImg" src="" alt="Preview Gambar" class="max-h-[75vh] w-auto max-w-full rounded-2xl shadow-2xl border-2 border-white/20 object-contain transform scale-95 transition-transform duration-300">
+            <p id="lightboxCaption" class="text-center text-slate-200 text-sm mt-4 font-medium px-4 max-w-xl"></p>
+        </div>
+    </div>
+
+    <!-- SCRIPT LOGIKA VISUAL & ANIMASI -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Inisialisasi AOS (Animate on Scroll)
+        AOS.init({
+            once: true,
+            duration: 800,
+            offset: 60,
+            easing: 'ease-out-cubic'
+        });
+
+        // Toggle Menu Mobile
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Fitur Scroll Progress Bar
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById("scroll-progress").style.width = scrolled + "%";
+        });
+
+        // Fitur Toggle Dark/Light Mode
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        const themeToggleMobile = document.getElementById('theme-toggle-mobile');
+        const themeIconMobile = document.getElementById('theme-icon-mobile');
+
+        // Cek preferensi user saat reload
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+            themeIcon.classList.replace('fa-moon', 'fa-sun');
+            themeIconMobile.classList.replace('fa-moon', 'fa-sun');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+
+        function toggleTheme() {
+            document.documentElement.classList.toggle('dark');
+            if (document.documentElement.classList.contains('dark')) {
+                localStorage.theme = 'dark';
+                themeIcon.classList.replace('fa-moon', 'fa-sun');
+                themeIconMobile.classList.replace('fa-moon', 'fa-sun');
+            } else {
+                localStorage.theme = 'light';
+                themeIcon.classList.replace('fa-sun', 'fa-moon');
+                themeIconMobile.classList.replace('fa-sun', 'fa-moon');
+            }
+        }
+
+        themeToggleBtn.addEventListener('click', toggleTheme);
+        themeToggleMobile.addEventListener('click', toggleTheme);
+
+        // Ambient Partikel Daun Berjatuhan di Desa
+        const leavesContainer = document.getElementById('leaves-container');
+        for (let i = 0; i < 14; i++) {
+            const leaf = document.createElement('div');
+            leaf.classList.add('leaf');
+            leaf.style.left = `${Math.random() * 98}vw`;
+            leaf.style.animationDuration = `${9 + Math.random() * 8}s`;
+            leaf.style.animationDelay = `${Math.random() * 6}s`;
+            leavesContainer.appendChild(leaf);
+        }
+
+        // Interaksi Lightbox (Klik Gambar)
+        const lightboxModal = document.getElementById('lightboxModal');
+        const lightboxImg = document.getElementById('lightboxImg');
+        const lightboxCaption = document.getElementById('lightboxCaption');
+
+        function openLightbox(src, caption) {
+            lightboxImg.src = src;
+            lightboxCaption.textContent = caption;
+            lightboxModal.classList.add('active');
+            lightboxModal.classList.remove('pointer-events-none');
+            setTimeout(() => {
+                lightboxImg.classList.remove('scale-95');
+                lightboxImg.classList.add('scale-100');
+            }, 50);
+        }
+
+        function closeLightbox() {
+            lightboxImg.classList.add('scale-95');
+            lightboxImg.classList.remove('scale-100');
+            lightboxModal.classList.remove('active');
+            lightboxModal.classList.add('pointer-events-none');
+        }
+
+        lightboxModal.addEventListener('click', (e) => {
+            if (e.target === lightboxModal) closeLightbox();
+        });
+
+        // Filter Kategori Galeri
+        function filterGallery(category) {
+            const items = document.querySelectorAll('.gallery-item');
+            const buttons = document.querySelectorAll('.gallery-filter-btn');
+
+            buttons.forEach(btn => {
+                if (btn.getAttribute('data-filter') === category) {
+                    btn.classList.add('bg-desa-700', 'text-white');
+                    btn.classList.remove('bg-white', 'dark:bg-slate-800', 'text-slate-600', 'dark:text-slate-300');
+                } else {
+                    btn.classList.remove('bg-desa-700', 'text-white');
+                    btn.classList.add('bg-white', 'dark:bg-slate-800', 'text-slate-600', 'dark:text-slate-300');
+                }
+            });
+
+            items.forEach(item => {
+                if (category === 'all' || item.getAttribute('data-category') === category) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        // Form Submit langsung ke WhatsApp
+        const regForm = document.getElementById('regForm');
+        regForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const nama = document.getElementById('form-nama').value;
+            const wa = document.getElementById('form-wa').value;
+            const asal = document.getElementById('form-asal').value;
+            const minat = document.getElementById('form-peminatan').value;
+            const pesan = document.getElementById('form-pesan').value;
+
+            const text = `Halo Panitia PMB PeTIK II Jombang,%0ASaya ingin mendaftar sebagai Calon Mahasantri Baru:%0A%0A*Nama:* ${nama}%0A*No WA:* ${wa}%0A*Asal:* ${asal}%0A*Peminatan:* ${minat}%0A*Catatan/Motivasi:* ${pesan}`;
+            
+            window.open(`https://wa.me/6285821030543?text=${text}`, '_blank');
+        });
+    </script>
+</body>
+</html>
