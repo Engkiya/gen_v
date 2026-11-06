@@ -1,0 +1,95 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animasi Web Design</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: white;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Lingkaran */
+        .lingkaran {
+            width: 250px;
+            height: 250px;
+            background-color: #45e9df;
+            border-radius: 50%;
+
+            position: absolute;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+
+            animation: gerakBulat 3s ease-out forwards;
+        }
+
+        @keyframes gerakBulat {
+            0% {
+                left: -20%;
+            }
+
+            100% {
+                left: 50%;
+            }
+        }
+
+        /* Kotak */
+        .kotak {
+            width: 99%;
+            height: 120px;
+            background-color: aquamarine;
+
+            position: absolute;
+            top: 280px;
+            left: 0.5%;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            animation: gerakKotak 3s ease-out forwards;
+        }
+
+        @keyframes gerakKotak {
+            0% {
+                transform: translateX(-120%);
+            }
+
+            100% {
+                transform: translateX(0);
+            }
+        }
+
+        /* Tulisan */
+        h1 {
+            color: red;
+            font-size: clamp(20px, 4vw, 60px);
+            text-align: center;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div class="lingkaran"></div>
+
+    <div class="kotak">
+        <h1>
+            Assalamu'alaikum Selamat Belajar Web Design.
+        </h1>
+    </div>
+
+</body>
+</html>
