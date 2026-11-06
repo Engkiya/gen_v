@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>M. Azkiya - Software Developer</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom Mouse Tracking Glow Effect */
+        :root {
+            --mouse-x: 50%;
+            --mouse-y: 50%;
+        }
+        body {
+            background-color: #0f172a; /* slate-900 */
+        }
+        .glow-effect {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            background: radial-gradient(
+                800px circle at var(--mouse-x) var(--mouse-y),
+                rgba(45, 212, 191, 0.07), /* teal-400 with low opacity */
+                transparent 80%
+            );
+            z-index: 0;
+        }
+        .content-wrapper {
+            position: relative;
+            z-index: 1;
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0f172a; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #475569; }
+    </style>
+</head>
+<body class="text-slate-400 font-sans antialiased selection:bg-teal-300 selection:text-teal-900 leading-relaxed">
+
+    <!-- Glow Effect Background -->
+    <div class="glow-effect"></div>
+
+    <div class="content-wrapper max-w-5xl mx-auto px-6 py-12 md:py-20 lg:py-24">
+        
+        <!-- HEADER SECTION -->
+        <header class="mb-16">
+            <h1 class="text-5xl md:text-7xl font-bold text-slate-200 tracking-tight mb-3">
+                M. Azkiya
+            </h1>
+            <h2 class="text-xl md:text-2xl font-medium text-teal-400 mb-6">
+                Software Developer | Web Application Engineer
+            </h2>
+            
+            <div class="flex flex-wrap gap-4 text-sm mt-4">
+                <span class="flex items-center gap-2"><svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path></svg> Jombang, Jawa Timur</span>
+                <a href="mailto:angkiyaaja01@gmail.com" class="flex items-center gap-2 hover:text-teal-300 transition-colors"><svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path></svg> angkiyaaja01@gmail.com</a>
+                <span class="flex items-center gap-2"><svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"></path></svg> 08582030543</span>
+                <span class="flex items-center gap-2"><svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 1.414L10.586 9H7a1 1 0 100 2h3.586l-1.293 1.293a1 1 0 101.414 1.414l3-3a1 1 0 000-1.414z" clip-rule="evenodd"></path></svg> @angkiyaa_</span>
+            </div>
+
+            <!-- WhatsApp Action Button -->
+            <div class="mt-8">
+                <a href="https://wa.me/628582030543" target="_blank" class="inline-flex items-center justify-center gap-2 bg-teal-500/10 text-teal-400 border border-teal-500/50 hover:bg-teal-500 hover:text-slate-900 transition-all px-5 py-2.5 rounded-full font-semibold text-sm">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.1.824v.001z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+                    Hubungi via WhatsApp
+                </a>
+            </div>
+        </header>
+
+        <!-- MAIN LAYOUT -->
+        <main class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+            
+            <!-- LEFT COLUMN (Summary, Skills, Education) -->
+            <div class="lg:col-span-1 space-y-12">
+                
+                <!-- SUMMARY -->
+                <section>
+                    <h3 class="text-sm font-bold uppercase tracking-widest text-slate-200 mb-4 border-b border-slate-800 pb-2">Ringkasan Profesional</h3>
+                    <p class="text-sm">
+                        Pengembang perangkat lunak yang berdedikasi dengan spesialisasi dalam merancang dan membangun aplikasi web end-to-end (Full-Stack). Memiliki keahlian kuat dalam arsitektur Python, Flask, dan manajemen database SQLite, dipadukan dengan kemampuan merancang antarmuka (UI/UX) modern menggunakan Tailwind CSS. Mengadopsi pendekatan empiris berbasis proyek dan sangat memperhatikan estetika visual serta kelancaran interaksi desain.
+                    </p>
+                </section>
+
+                <!-- SKILLS -->
+                <section>
+                    <h3 class="text-sm font-bold uppercase tracking-widest text-slate-200 mb-4 border-b border-slate-800 pb-2">Keahlian Teknis</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="bg-teal-400/10 text-teal-300 text-xs font-medium px-3 py-1 rounded-full">Python</span>
+                        <span class="bg-teal-400/10 text-teal-300 text-xs font-medium px-3 py-1 rounded-full">JavaScript</span>
+                        <span class="bg-teal-400/10 text-teal-300 text-xs font-medium px-3 py-1 rounded-full">HTML5 & CSS3</span>
+                        <span class="bg-teal-400/10 text-teal-300 text-xs font-medium px-3 py-1 rounded-full">Flask</span>
+                        <span class="bg-teal-400/10 text-teal-300 text-xs font-medium px-3 py-1 rounded-full">Tailwind CSS</span>
+                        <span class="bg-teal-400/10 text-teal-300 text-xs font-medium px-3 py-1 rounded-full">SQLite</span>
+                        <span class="bg-teal-400/10 text-teal-300 text-xs font-medium px-3 py-1 rounded-full">RBAC Design</span>
+                        <span class="bg-teal-400/10 text-teal-300 text-xs font-medium px-3 py-1 rounded-full">Agile (Scrum)</span>
+                    </div>
+                </section>
+
+                <!-- EDUCATION -->
+                <section>
+                    <h3 class="text-sm font-bold uppercase tracking-widest text-slate-200 mb-4 border-b border-slate-800 pb-2">Pendidikan</h3>
+                    <div>
+                        <h4 class="text-slate-200 font-semibold text-base">PeTIK Jombang</h4>
+                        <p class="text-teal-400 text-sm mb-2">Fundamental Software Development (PPL)</p>
+                        <p class="text-sm">
+                            Mendalami konsep rekayasa perangkat lunak, algoritma, serta penggunaan IDE modern. Berperan aktif dalam kolaborasi tim berbasis Scrum framework untuk mengeksekusi proyek dalam lingkungan yang adaptif.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- ADDITIONAL SKILLS -->
+                <section>
+                    <h3 class="text-sm font-bold uppercase tracking-widest text-slate-200 mb-4 border-b border-slate-800 pb-2">Kemampuan Tambahan</h3>
+                    <ul class="text-sm space-y-2 list-disc pl-4 marker:text-teal-400">
+                        <li><strong class="text-slate-300">Soft Skills:</strong> Problem Solving, Team Collaboration, Berpikir Kritis.</li>
+                        <li><strong class="text-slate-300">Bahasa:</strong> Indonesia (Native), Jepang (Beginner).</li>
+                        <li><strong class="text-slate-300">Minat:</strong> Eksplorasi pembuatan musik digital berbasis AI (Prompt Engineering) untuk genre EDM.</li>
+                    </ul>
+                </section>
+            </div>
+
+            <!-- RIGHT COLUMN (Projects / Portofolio) -->
+            <div class="lg:col-span-2">
+                <h3 class="text-sm font-bold uppercase tracking-widest text-slate-200 mb-6 border-b border-slate-800 pb-2">Pengalaman Proyek & Portofolio</h3>
+                
+                <div class="space-y-6">
+                    
+                    <!-- Project 1 -->
+                    <div class="group relative rounded-xl p-6 transition-all hover:bg-slate-800/50 hover:shadow-[inset_0_1px_0_0_rgba(148,163,184,0.1)]">
+                        <h4 class="text-slate-200 font-semibold text-lg group-hover:text-teal-300 transition-colors">Platform Top-Up Game Terintegrasi</h4>
+                        <p class="text-sm text-slate-500 mb-3">Python, Flask, SQLite, Tailwind CSS</p>
+                        <ul class="text-sm space-y-2 list-disc pl-4 marker:text-slate-600">
+                            <li>Mengembangkan aplikasi web komprehensif untuk layanan top-up game dengan fitur autentikasi dan kontrol akses multi-peran (Admin & Pelanggan).</li>
+                            <li>Merancang katalog game interaktif, kalkulasi sistem checkout server-side yang aman, dan pelacakan invoice otomatis.</li>
+                            <li>Membangun dashboard backoffice administratif untuk pemantauan transaksi.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Project 2 -->
+                    <div class="group relative rounded-xl p-6 transition-all hover:bg-slate-800/50 hover:shadow-[inset_0_1px_0_0_rgba(148,163,184,0.1)]">
+                        <h4 class="text-slate-200 font-semibold text-lg group-hover:text-teal-300 transition-colors">Sistem Manajemen Perpustakaan & Peminjaman</h4>
+                        <p class="text-sm text-slate-500 mb-3">Python, Flask, SQLite, Tailwind CSS</p>
+                        <ul class="text-sm space-y-2 list-disc pl-4 marker:text-slate-600">
+                            <li>Membangun aplikasi web perpustakaan digital end-to-end yang melayani pustakawan dan peminjam buku.</li>
+                            <li>Mengimplementasikan fitur autentikasi pengguna, manajemen inventaris, dan pencatatan transaksi peminjaman secara real-time di database.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Project 3 -->
+                    <div class="group relative rounded-xl p-6 transition-all hover:bg-slate-800/50 hover:shadow-[inset_0_1px_0_0_rgba(148,163,184,0.1)]">
+                        <h4 class="text-slate-200 font-semibold text-lg group-hover:text-teal-300 transition-colors">JP Nihongo Hub - Web Edukasi</h4>
+                        <p class="text-sm text-slate-500 mb-3">Web Technologies (HTML, CSS, JS)</p>
+                        <ul class="text-sm space-y-2 list-disc pl-4 marker:text-slate-600">
+                            <li>Membuat aplikasi web interaktif yang dirancang khusus untuk memfasilitasi pembelajaran kosakata bahasa Jepang.</li>
+                            <li>Menyusun struktur data pembelajaran berdasarkan kategori spesifik seperti angka, warna, dan benda sehari-hari untuk mempermudah belajar mandiri.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Project 4 -->
+                    <div class="group relative rounded-xl p-6 transition-all hover:bg-slate-800/50 hover:shadow-[inset_0_1px_0_0_rgba(148,163,184,0.1)]">
+                        <h4 class="text-slate-200 font-semibold text-lg group-hover:text-teal-300 transition-colors">Interactive Single-Page Web CV</h4>
+                        <p class="text-sm text-slate-500 mb-3">HTML, Tailwind CSS, JavaScript</p>
+                        <ul class="text-sm space-y-2 list-disc pl-4 marker:text-slate-600">
+                            <li>Merancang portofolio CV single-page interaktif dengan estetika visual yang terinspirasi dari antarmuka modern developer.</li>
+                            <li>Menulis script kustom untuk efek <em>mouse-tracking glow</em> yang responsif guna meningkatkan pengalaman interaksi pengguna.</li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </main>
+
+        <footer class="mt-20 border-t border-slate-800 pt-8 text-center text-xs text-slate-600">
+            <p>&copy; 2026 M. Azkiya. Dibangun dengan HTML, Tailwind CSS, dan JavaScript.</p>
+        </footer>
+    </div>
+
+    <!-- Mouse Tracking Script for Glow Effect -->
+    <script>
+        document.addEventListener("mousemove", (e) => {
+            const glow = document.querySelector(".glow-effect");
+            glow.style.setProperty("--mouse-x", `${e.clientX}px`);
+            glow.style.setProperty("--mouse-y", `${e.clientY}px`);
+        });
+    </script>
+</body>
+</html>
