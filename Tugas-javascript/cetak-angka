@@ -1,0 +1,9 @@
+let angka = -5;
+
+if (angka > 0) {
+    console.log("Angka Positif");
+} else if (angka < 0) {
+    console.log("Angka Negatif");
+} else {
+    console.log("Angka Nol");
+}
