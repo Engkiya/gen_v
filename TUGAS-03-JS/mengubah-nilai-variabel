@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tugas 2 - Mengubah Variabel</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        .card {
+            background: white;
+            padding: 20px 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2>Tugas 2: Mengubah Nilai Variabel</h2>
+        <p>Buka <strong>Developer Tools</strong> (tekan <code>F12</code> atau <code>Ctrl+Shift+I</code>) lalu cek tab <strong>Console</strong> untuk melihat hasilnya.</p>
+    </div>
+
+    <script>
+        // 1. Buat variabel nilai ujian
+        let nilai = 70;
+        console.log("Nilai awal: ", nilai);
+
+        // 2. Ubah nilainya menjadi 85
+        nilai = 85;
+        console.log("Nilai baru: ", nilai);
+    </script>
+</body>
+</html>
